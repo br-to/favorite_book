@@ -5,7 +5,7 @@ class Item < ApplicationRecord
   has_one_attached :item_image
   attr_accessor :image
 
-  def perse_base64(image)
+  def parse_base64(image)
     if image.present? || rex_image(image) == ''
        content_type = create_extension(image)
        contents = image.sub %r/data:((image|application)\/.{3,}),/,''
