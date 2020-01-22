@@ -7,13 +7,13 @@ class Item < ApplicationRecord
 
   def parse_base64(image)
     if image.present? || rex_image(image) == ''
-       content_type = create_extension(image)
-       contents = image.sub %r/data:((image|application)\/.{3,}),/,''
-       decode_data = Base64.decode64(contents)
-       filename = Time.zone.new.to_s + '.' + content_type
-       File.open("#{Rails.root}/tmp/#{filename}", 'wb') do |f|
-        f.write(decode_data)
-       end
+      content_type = create_extension(image)
+      contents = image.sub %r/data:((image|application)\/.{3,}),/, ''
+      decoded_data = Base64.decode64(contents)
+      filename = Time.zone.now.to_s + '.' + content_type
+      File.open("#{Rails.root}/tmp/#{filename}", 'wb') do |f|
+        f.write(decoded_data)
+      end
     end
     attach_image(filename)
   end
@@ -30,7 +30,7 @@ class Item < ApplicationRecord
   end
 
   def attach_image(filename)
-    item_image.attch(io: File.open("#{Rails.root}/tmp/#{filename}"), filename: filename)
+    book_image.attach(io: File.open("#{Rails.root}/tmp/#{filename}"), filename: filename)
     FileUtils.rm("#{Rails.root}/tmp/#{filename}")
   end
 end
