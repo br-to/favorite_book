@@ -30,7 +30,7 @@ class Item < ApplicationRecord
   end
 
   def attach_image(filename)
-    book_image.attach(io: File.open("#{Rails.root}/tmp/#{filename}"), filename: filename)
+    item_image.attach(io: File.open("#{Rails.root}/tmp/#{filename}"), filename: filename)
     FileUtils.rm("#{Rails.root}/tmp/#{filename}")
   end
 end
