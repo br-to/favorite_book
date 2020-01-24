@@ -11,13 +11,8 @@ class Api::V1::ItemsController < ApplicationController
   end
 
   def create
-    @item = Item.new(item_params)
-    if @item.save
-      @item.parse_base64(params[:image])
-      render json: @item, status: :created
-    else
-      redner json: @item.error, status: :unprocessable_entity
-    end
+    @item = Item.create!(item_params)
+    render json: @item, status: :created
   end
   
   def update
