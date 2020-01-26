@@ -7,9 +7,10 @@ class Item < ApplicationRecord
 
   def parse_base64
     if image.present?
-      content = image.split(',')[1]
-      filename = Time.zone.now.to_s + '.png'
-      decoded_data = Base64.decode64(content)
+      prefix = image[/(image|application)(\/.*)(?=;)/]
+      type = prefix.sub(/(image|application)(\/)/, '')
+      decoded_data = Base64.decode64(image.sub(/data:#{prefix};base64,/, ''))
+      filename = "#{Time.zone.now.to_s}.#{type}"
       item_image.attach(io: StringIO.new(decoded_data), filename: filename)
     end
   end
