@@ -2,7 +2,7 @@ class Api::V1::ItemsController < ApplicationController
   before_action :set_item, only: [ :show, :update, :destroy ]
 
   def index
-    @items = Item.all
+    @items = Item.where("title = ?", params[:title])
     render json: @items
   end
 
