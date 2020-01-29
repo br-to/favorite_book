@@ -1,4 +1,5 @@
 class Item < ApplicationRecord
+  include Rails.application.routes.url_helpers
   validates :title, presence: true, length: { maximum: 100 }
   validates :description, presence: true, length: { maximum: 500 }
   validates :price, presence: true, numericality:{ greater_than_or_equal_to: 0 }
@@ -13,5 +14,9 @@ class Item < ApplicationRecord
       filename = "#{Time.zone.now.to_s}.#{type}"
       item_image.attach(io: StringIO.new(decoded_data), filename: filename)
     end
+  end
+
+  def item_image_url
+    url_for(item_image) if item_image.attached?
   end
 end
