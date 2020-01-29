@@ -7,7 +7,7 @@ class Api::V1::ItemsController < ApplicationController
   end
 
   def show
-    render json: item
+    render json: @item
   end
 
   def create
@@ -21,21 +21,21 @@ class Api::V1::ItemsController < ApplicationController
   end
   
   def update
-    if item.update(item_params)
-      render json: item
+    if @item.update(item_params)
+      render json: @item
     else
       render json: item.errors, status: :unprocessable_entity
     end
   end
 
   def destroy
-    item.destroy
+    @item.destroy
   end
 
   private
 
   def set_item
-    item = Item.find(params[:id])
+    @item = Item.find(params[:id])
   end
 
   def item_params
