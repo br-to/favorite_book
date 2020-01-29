@@ -3,11 +3,11 @@ class Api::V1::ItemsController < ApplicationController
 
   def index
     items = Item.all
-    render json: items
+    render json: items, methods: [:item_image_url]
   end
 
   def show
-    render json: @item
+    render json: @item, methods: [:item_image_url]
   end
 
   def create
