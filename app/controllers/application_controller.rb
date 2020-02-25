@@ -5,7 +5,7 @@ class ApplicationController < ActionController::API
     if request.headers['Authorization'].present?
       begin
       encode_token = request.headers['Authorization'].split('Bearer ').last
-      @decode_token = JWT.decode(encode_token, Rails.application.secrets.secret_key_base, true, algorithm: 'HS256')[0] 
+      @decode_token = JWT.decode(encode_token, ENV['SECRET_KEY_BASE'], true, algorithm: 'HS256')[0] 
       rescue JWT::DecodeError, JWT::VerificationError
         render json: { errors: ['Missing credentials'] }, status: :unauthorized
       end
