@@ -32,4 +32,5 @@
 ngrok
 .DS_Store
 # these should all be checked in to normalize the environment:
-# Gemfile.lock, .ruby-version, .ruby-gemset
+# Gemfile.lock, .ruby-version, .ruby-gemse
+.env
